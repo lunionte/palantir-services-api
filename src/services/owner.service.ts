@@ -36,9 +36,6 @@ export class OwnerService {
     async signIn(owner: IOwner) {
         const ownerData = await this.ownerRepository.getByEmail(owner.email);
         if (!ownerData) {
-            throw new NotFoundError("Usuário não encontrado");
-        }
-        if (!ownerData) {
             throw new ValidationError("Email ou senha inválidos");
         }
         const isValidPassword = await bcrypt.compare(owner.password, ownerData.password);
