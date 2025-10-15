@@ -14,6 +14,11 @@ export interface User {
     role: string;
 }
 
+export interface IUpdateOwner {
+    name?: string;
+    email?: string;
+}
+
 export const newOwnerSchema = Joi.object().keys({
     name: Joi.string().max(40).trim().required(),
     email: Joi.string().email().trim().required(),
@@ -34,3 +39,10 @@ export const updatePasswordSchema = Joi.object().keys({
 export const deleteAccountSchema = Joi.object().keys({
     password: Joi.string().min(6).max(15).trim().required(),
 });
+
+export const updateOwnerSchema = Joi.object()
+    .keys({
+        name: Joi.string().max(40).trim().optional(),
+        email: Joi.string().email().trim().optional(),
+    })
+    .required();
