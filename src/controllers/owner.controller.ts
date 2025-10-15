@@ -25,6 +25,13 @@ export class OwnerController {
         res.status(201).json({ data });
     }
 
+    static async update(req: Request, res: Response) {
+        const dataToUpdate = req.body;
+        const id = req.user.id;
+        const data = await new OwnerService().update(id, dataToUpdate);
+        res.json({ data });
+    }
+
     static async updatePassword(req: Request, res: Response) {
         const { oldPassword, newPassword } = req.body;
         const id = req.user.id;

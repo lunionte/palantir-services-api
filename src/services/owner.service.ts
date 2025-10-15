@@ -1,6 +1,6 @@
 import { NotFoundError } from "../errors/not-found.error";
 import { ValidationError } from "../errors/validation.error";
-import { IOwner } from "../models/owner.model";
+import { IOwner, IUpdateOwner } from "../models/owner.model";
 import { OwnerRepository } from "../repositories/owner.repository";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
@@ -54,6 +54,23 @@ export class OwnerService {
             }
         );
         return token;
+    }
+
+    async update(id: string, dataToUpdate: IUpdateOwner) {
+        const ownerData = await this.ownerRepository.getById(id);
+        if (!ownerData) {
+            throw new NotFoundError("Usuário não encotrado");
+        }
+        if (dataToUpdate.name && dataToUpdate.name === ownerData.name) {
+            throw new ValidationError("O nome não pode ser o igual ao anterior");
+        }
+
+        if (dataToUpdate.email && dataToUpdate.email === ownerData.email) {
+            throw new ValidationError("O email não pode ser igual ao anterior");
+        }
+
+        const data = await this.ownerRepository.update(id, dataToUpdate);
+        return data;
     }
 
     async updatePassword(id: string, oldPassword: string, newPassword: string) {

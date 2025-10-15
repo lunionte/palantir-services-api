@@ -38,6 +38,14 @@ export class OwnerRepository {
         return data;
     }
 
+    async update(id: string, dataToUpdate: Object) {
+        const data = await prisma.owner.update({
+            where: { id },
+            data: dataToUpdate,
+        });
+        return data;
+    }
+
     async updatePassword(id: string, newPassword: string) {
         const data = await prisma.owner.update({
             where: { id },
