@@ -1,0 +1,109 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model Owner {
+  id          String      @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  email       String      @unique
+  password    String
+  role        OwnerRole   @default(OWNER)
+  businesses  Business[]
+  createdAt   DateTime    @default(now())
+}
+
+model Business {
+  id             String          @id @default(auto()) @map("_id") @db.ObjectId
+  name           String
+  type           BusinessType
+  address        String
+  phone          String
+  ownerId        String?         @db.ObjectId
+  owner          Owner?          @relation(fields: [ownerId], references: [id])
+  professionals  Professional[]
+  clients        Client[]
+  appointments   Appointment[]
+  services       Service[]
+  createdAt      DateTime        @default(now())
+}
+
+model Professional {
+  id             String        @id @default(auto()) @map("_id") @db.ObjectId
+  name           String
+  email          String        @unique
+  password       String
+  phone          String?
+  businessId     String        @db.ObjectId
+  business       Business      @relation(fields: [businessId], references: [id])
+  appointments   Appointment[]
+  createdAt      DateTime      @default(now())
+}
+
+model Client {
+  id             String        @id @default(auto()) @map("_id") @db.ObjectId
+  name           String
+  email          String        @unique
+  phone          String?
+  password       String
+  businessId     String        @db.ObjectId
+  business       Business      @relation(fields: [businessId], references: [id])
+  appointments   Appointment[]
+  createdAt      DateTime      @default(now())
+}
+
+model Service {
+  id             String        @id @default(auto()) @map("_id") @db.ObjectId
+  name           String
+  description    String?
+  price          Float
+  durationMin    Int
+  businessId     String        @db.ObjectId
+  business       Business      @relation(fields: [businessId], references: [id])
+  appointments   Appointment[]
+}
+
+model Appointment {
+  id              String             @id @default(auto()) @map("_id") @db.ObjectId
+  clientId        String             @db.ObjectId
+  client          Client             @relation(fields: [clientId], references: [id])
+  professionalId  String             @db.ObjectId
+  professional    Professional       @relation(fields: [professionalId], references: [id])
+  serviceId       String             @db.ObjectId
+  service         Service            @relation(fields: [serviceId], references: [id])
+  businessId      String             @db.ObjectId
+  business        Business           @relation(fields: [businessId], references: [id])
+  dateTime        DateTime
+  status          AppointmentStatus  @default(SCHEDULED)
+  paymentMethod   PaymentMethod
+  createdAt       DateTime           @default(now())
+}
+
+enum OwnerRole {
+  OWNER
+  ADMIN
+}
+
+enum BusinessType {
+  BARBERSHOP
+  SALON
+  CLINIC
+  STUDIO
+  OTHER
+}
+
+enum AppointmentStatus {
+  SCHEDULED
+  COMPLETED
+  CANCELED
+}
+
+enum PaymentMethod {
+  CASH
+  PIX
+  CARD
+}
