@@ -7,7 +7,7 @@ export const authMiddleware = async (req: Request, res: Response, next: NextFunc
     const token = req.headers.authorization?.split("Bearer ")[1];
 
     if (!token) {
-        throw new Error("Token não fornecido");
+        throw new ValidationError("Token não fornecido");
     }
 
     try {
