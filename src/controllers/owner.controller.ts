@@ -8,7 +8,7 @@ export class OwnerController {
     }
 
     static async getById(req: Request, res: Response) {
-        const { id } = req.body;
+        const { id } = req.params;
         const data = await new OwnerService().getById(id);
         res.json(data);
     }
