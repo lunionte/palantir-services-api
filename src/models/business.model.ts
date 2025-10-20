@@ -5,6 +5,7 @@ export interface IBusiness {
     type: BusinessType;
     address: string;
     phone: string;
+    logo?: string;
     ownerId?: string;
 }
 
