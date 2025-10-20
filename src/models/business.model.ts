@@ -25,6 +25,7 @@ export const newBusinessSchema = Joi.object().keys({
         .required(),
     address: Joi.string().max(200).trim().uppercase().required(),
     phone: Joi.string().length(11).trim().required(),
+    logo: Joi.string().base64().optional(),
 });
 
 export const updateBusinessSchema = Joi.object()
@@ -36,5 +37,6 @@ export const updateBusinessSchema = Joi.object()
             .optional(),
         address: Joi.string().max(200).trim().uppercase().optional(),
         phone: Joi.string().length(11).trim().optional(),
+        logo: Joi.string().base64().optional(),
     })
     .required();
