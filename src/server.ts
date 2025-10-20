@@ -4,6 +4,7 @@ import { ownerAuthRoutes } from "./routes/owner.auth.route";
 import { errors } from "celebrate";
 import { errorHandler } from "./middlewares/error-handler.middleware";
 import { ownerRoutes } from "./routes/owner.route";
+import { businessRoute } from "./routes/business.route";
 
 dotenv.config();
 const app = express();
@@ -11,6 +12,7 @@ app.use(express.json());
 
 app.use("/api/owner", ownerRoutes);
 app.use("/api/auth/owner", ownerAuthRoutes);
+app.use("/api/business", businessRoute);
 
 app.use(errors());
 app.use(errorHandler);
