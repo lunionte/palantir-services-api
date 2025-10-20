@@ -78,7 +78,7 @@ model Appointment {
   businessId      String             @db.ObjectId
   business        Business           @relation(fields: [businessId], references: [id])
   dateTime        DateTime
-  status          AppointmentStatus  @default(SCHEDULED)
+  status          AppointmentStatus  @default(AGENDADO)
   paymentMethod   PaymentMethod
   createdAt       DateTime           @default(now())
 }
@@ -89,21 +89,21 @@ enum OwnerRole {
 }
 
 enum BusinessType {
-  BARBERSHOP
-  SALON
-  CLINIC
-  STUDIO
-  OTHER
+  BARBEARIA
+  SALAO
+  CLINICA
+  ESTUDIO
+  OUTRO
 }
 
 enum AppointmentStatus {
-  SCHEDULED
-  COMPLETED
-  CANCELED
+  AGENDADO
+  CONCLUIDO
+  CANCELADO
 }
 
 enum PaymentMethod {
-  CASH
+  DINHEIRO
   PIX
-  CARD
+  CARTAO
 }
