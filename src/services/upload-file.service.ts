@@ -31,7 +31,7 @@ export class UploadFileService {
             throw new InternalServerError("Ocorreu um erro ao fazer upload da imagem");
         }
 
-        const { data } = await supabase.storage.from("business").getPublicUrl(fileName);
+        const { data } = supabase.storage.from("business").getPublicUrl(fileName);
         return data.publicUrl;
     }
 }
