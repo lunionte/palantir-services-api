@@ -23,6 +23,7 @@ model Business {
   type           BusinessType
   address        String
   phone          String
+  logo           String?
   ownerId        String?         @db.ObjectId
   owner          Owner?          @relation(fields: [ownerId], references: [id])
   professionals  Professional[]
