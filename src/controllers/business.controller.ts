@@ -14,6 +14,12 @@ export class BusinessController {
         res.json({ data });
     }
 
+    static async getAllMe(req: Request, res: Response) {
+        const id = req.user.id;
+        const data = await new BusinessService().getAllMe(id);
+        res.json({ data });
+    }
+
     static async create(req: Request, res: Response) {
         const business = req.body as IBusiness;
         const ownerId = req.user.id;
