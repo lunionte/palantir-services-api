@@ -5,6 +5,7 @@ import { celebrate, Segments } from "celebrate";
 import { newBusinessSchema, updateBusinessSchema } from "../models/business.model";
 import { ensureRole } from "../middlewares/ensuroleRole.middleware";
 import { newProfessionalSchema } from "../models/professional.model";
+import { ProfessionalController } from "../controllers/professional.controller";
 
 export const businessRoute = Router();
 
@@ -24,7 +25,7 @@ businessRoute.post(
     authMiddleware,
     celebrate({ [Segments.BODY]: newProfessionalSchema }),
     ensureRole("OWNER"),
-    BusinessController.createProfessional
+    ProfessionalController.create
 );
 businessRoute.patch(
     "/update/:id",
