@@ -9,4 +9,10 @@ export class ProfessionalController {
         const data = await new ProfessionalService().create(professional, id);
         res.json({ data });
     }
+
+    static async signIn(req: Request, res: Response) {
+        const { email, password } = req.body;
+        const data = await new ProfessionalService().signIn(email, password);
+        res.json({ data });
+    }
 }
