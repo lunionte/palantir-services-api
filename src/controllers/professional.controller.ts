@@ -2,6 +2,10 @@ import { Request, Response } from "express";
 import { ProfessionalService } from "../services/professional.service";
 
 export class ProfessionalController {
+    async getAll(req: Request, res: Response) {
+        const data = await new ProfessionalService();
+    }
+
     static async create(req: Request, res: Response) {
         const professional = req.body;
         const id = req.user.id;
