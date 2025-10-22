@@ -24,6 +24,13 @@ export class BusinessRepository {
         return data;
     }
 
+    async getBusinessByOwnerId(id: string) {
+        const data = await prisma.business.findMany({
+            where: { ownerId: id },
+        });
+        return data;
+    }
+
     async save(business: IBusiness) {
         const data = await prisma.business.create({
             data: business,
