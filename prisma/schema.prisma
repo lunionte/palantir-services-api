@@ -40,7 +40,9 @@ model Professional {
   password       String
   phone          String?
   businessId     String        @db.ObjectId
+  image          String?
   business       Business      @relation(fields: [businessId], references: [id])
+  role           String        @default("EMPLOYEE")
   appointments   Appointment[]
   createdAt      DateTime      @default(now())
 }
