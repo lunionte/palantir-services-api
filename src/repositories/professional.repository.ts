@@ -16,6 +16,13 @@ export class ProfessionalRepository {
         return data;
     }
 
+    async getByEmail(email: string) {
+        const data = await prisma.professional.findFirst({
+            where: { email },
+        });
+        return data;
+    }
+
     async save(professional: IProfessional) {
         const data = await prisma.professional.create({
             data: professional,
