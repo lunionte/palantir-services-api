@@ -27,6 +27,13 @@ export class BusinessController {
         res.status(201).json({ data });
     }
 
+    static async createProfessional(req: Request, res: Response) {
+        const professional = req.body;
+        const id = req.user.id;
+        const data = await new BusinessService().createProfessional(professional, id);
+        res.status(201).json({ data });
+    }
+
     static async update(req: Request, res: Response) {
         const { id } = req.params;
         const business = req.body as IBusiness;
