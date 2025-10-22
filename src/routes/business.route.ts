@@ -10,7 +10,7 @@ import { ProfessionalController } from "../controllers/professional.controller";
 export const businessRoute = Router();
 
 // DEPOIS TIRAR O ENSUREROLE, ESSA ROTA SERÁ DESTINADA PARA TODOS VEREM TODOS OS SERVIÇOS
-businessRoute.get("/", authMiddleware, ensureRole("OWNER"), BusinessController.getAll);
+businessRoute.get("/", authMiddleware, ensureRole("OWNER", "EMPLOYEE"), BusinessController.getAll);
 businessRoute.get("/@me", authMiddleware, ensureRole("OWNER"), BusinessController.getAllMe);
 businessRoute.get("/:id", authMiddleware, ensureRole("OWNER"), BusinessController.getById);
 businessRoute.post(
