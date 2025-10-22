@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import jwt, { JwtPayload } from "jsonwebtoken";
 import { OwnerService } from "../services/owner.service";
 import { ValidationError } from "../errors/validation.error";
+import { ProfessionalService } from "../services/professional.service";
 
 export const authMiddleware = async (req: Request, res: Response, next: NextFunction) => {
     const token = req.headers.authorization?.split("Bearer ")[1];
@@ -14,13 +15,19 @@ export const authMiddleware = async (req: Request, res: Response, next: NextFunc
         const payload = jwt.verify(token, process.env.JWT_SECRET!) as JwtPayload;
         console.log(payload);
 
-        // por enquanto, só valida se for um owner
-        // futuramente adicionar um service que gerencia userData por id e role
-        const userData = await new OwnerService().getById(payload.id);
+        let userData;
+        if (payload.role === "OWNER") {
+            userData = await new OwnerService().getById(payload.id);
+        } else if (payload.role === "EMPLOYEE") {
+            userData = await new ProfessionalService().getById(payload.id);
+        } else {
+            throw new ValidationError("Role inválida");
+        }
+
         req.user = {
-            id: userData.id,
-            email: userData.email,
-            role: userData.role,
+            id: userData!.id,
+            email: userData!.email,
+            role: payload.role,
         };
 
         next();
