@@ -5,7 +5,13 @@ const prisma = new PrismaClient();
 
 export class BusinessRepository {
     async getAll() {
-        const data = await prisma.business.findMany();
+        const data = await prisma.business.findMany({
+            include: {
+                professionals: {
+                    select: { id: true, name: true, email: true },
+                },
+            },
+        });
         return data;
     }
 
@@ -16,7 +22,7 @@ export class BusinessRepository {
         return data;
     }
 
-    async getBusinessOwnerById(id: string) {
+    async getBusinessOwnerId(id: string) {
         const data = await prisma.business.findUnique({
             where: { id },
             select: { ownerId: true },
