@@ -16,6 +16,14 @@ export class BusinessService {
         return data;
     }
 
+    async getAllMe(id: string) {
+        const data = await this.businessRepository.getBusinessByOwnerId(id);
+        if (!data) {
+            throw new NotFoundError("O usuário não possui nenhum projeto");
+        }
+        return data;
+    }
+
     async getById(businessId: string) {
         const data = await this.businessRepository.getById(businessId);
         return data;
