@@ -8,7 +8,7 @@ import { businessRoute } from "./routes/business.route";
 
 dotenv.config();
 const app = express();
-app.use(express.json());
+app.use(express.json({ limit: "10mb" }));
 
 app.use("/api/owner", ownerRoutes);
 app.use("/api/auth/owner", ownerAuthRoutes);
