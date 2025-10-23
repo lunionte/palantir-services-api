@@ -29,8 +29,13 @@ export class OwnerService {
         const hashedPassword = await bcrypt.hash(owner.password, 10);
         owner.password = hashedPassword;
 
-        const data = this.ownerRepository.save(owner);
-        return data;
+        const userData = await this.ownerRepository.save(owner);
+
+        const token = jwt.sign({ id: userData.id, role: userData.role }, process.env.JWT_SECRET!, {
+            expiresIn: "7d",
+        });
+
+        return token;
     }
 
     async signIn(owner: IOwner) {
@@ -43,13 +48,9 @@ export class OwnerService {
             throw new ValidationError("Email ou senha inválidos");
         }
 
-        const token = jwt.sign(
-            { id: ownerData.id, role: ownerData.role },
-            process.env.JWT_SECRET!,
-            {
-                expiresIn: "3d",
-            }
-        );
+        const token = jwt.sign({ id: ownerData.id, role: ownerData.role }, process.env.JWT_SECRET!, {
+            expiresIn: "3d",
+        });
         return token;
     }
 
