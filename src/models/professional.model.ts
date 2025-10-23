@@ -6,6 +6,7 @@ export interface IProfessional {
     password: string;
     phone?: string;
     businessId: string;
+    image?: string;
     createdAt?: string;
 }
 
