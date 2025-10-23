@@ -2,8 +2,15 @@ import { Request, Response } from "express";
 import { ProfessionalService } from "../services/professional.service";
 
 export class ProfessionalController {
-    async getAll(req: Request, res: Response) {
-        const data = await new ProfessionalService();
+    static async getAll(req: Request, res: Response) {
+        const data = await new ProfessionalService().getAll();
+        res.json({ data });
+    }
+
+    static async getById(req: Request, res: Response) {
+        const id = req.params.id;
+        const data = await new ProfessionalService().getById(id);
+        res.json({ data });
     }
 
     static async create(req: Request, res: Response) {
