@@ -9,7 +9,7 @@ export class BusinessService {
     private uploadFileService;
     constructor() {
         this.businessRepository = new BusinessRepository();
-        this.uploadFileService = new UploadFileService("images/");
+        this.uploadFileService = new UploadFileService("images/business/");
     }
     async getAll() {
         const data = await this.businessRepository.getAll();
@@ -40,7 +40,17 @@ export class BusinessService {
         return data;
     }
 
-    async update(businessId: string, business: IBusiness) {
+    async update(businessId: string, business: IBusiness, ownerId: string) {
+        const businessData = await this.businessRepository.getBusinessOwnerId(businessId);
+
+        if (!businessData) {
+            throw new NotFoundError("Business não encontrado");
+        }
+
+        if (businessData.ownerId !== ownerId) {
+            throw new ForbidenError();
+        }
+
         if (business.logo) {
             const logo = await this.uploadFileService.upload(business.logo);
             business.logo = logo;
