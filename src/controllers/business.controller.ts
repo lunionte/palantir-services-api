@@ -29,8 +29,9 @@ export class BusinessController {
 
     static async update(req: Request, res: Response) {
         const { id } = req.params;
+        const ownerId = req.user.id;
         const business = req.body as IBusiness;
-        const data = await new BusinessService().update(id, business);
+        const data = await new BusinessService().update(id, business, ownerId);
         res.json({ data });
     }
 
