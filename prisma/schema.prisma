@@ -27,7 +27,6 @@ model Business {
   ownerId        String?         @db.ObjectId
   owner          Owner?          @relation(fields: [ownerId], references: [id])
   professionals  Professional[]
-  clients        Client[]
   appointments   Appointment[]
   services       Service[]
   createdAt      DateTime        @default(now())
@@ -53,8 +52,7 @@ model Client {
   email          String        @unique
   phone          String?
   password       String
-  businessId     String        @db.ObjectId
-  business       Business      @relation(fields: [businessId], references: [id])
+  role           String        @default("CLIENT")
   appointments   Appointment[]
   createdAt      DateTime      @default(now())
 }
@@ -89,6 +87,7 @@ model Appointment {
 enum OwnerRole {
   OWNER
   ADMIN
+  CLIENT
 }
 
 enum BusinessType {
