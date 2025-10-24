@@ -6,15 +6,19 @@ import { errorHandler } from "./middlewares/error-handler.middleware";
 import { ownerRoutes } from "./routes/owner.route";
 import { businessRoute } from "./routes/business.route";
 import { professionalRoutes } from "./routes/professional.auth.route";
+import { clientRoutes } from "./routes/client.auth.route";
+import cors from "cors";
 
 dotenv.config();
 const app = express();
 app.use(express.json({ limit: "10mb" }));
+app.use(cors());
 
 app.use("/api/owner", ownerRoutes);
 app.use("/api/auth/owner", ownerAuthRoutes);
 app.use("/api/auth/professional", professionalRoutes);
 app.use("/api/business", businessRoute);
+app.use("/api/auth/client", clientRoutes);
 
 app.use(errors());
 app.use(errorHandler);
