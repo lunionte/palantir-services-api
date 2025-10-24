@@ -3,6 +3,7 @@ import jwt, { JwtPayload } from "jsonwebtoken";
 import { OwnerService } from "../services/owner.service";
 import { ValidationError } from "../errors/validation.error";
 import { ProfessionalService } from "../services/professional.service";
+import { ClientRepository } from "../repositories/client.repository";
 
 export const authMiddleware = async (req: Request, res: Response, next: NextFunction) => {
     const token = req.headers.authorization?.split("Bearer ")[1];
@@ -20,6 +21,8 @@ export const authMiddleware = async (req: Request, res: Response, next: NextFunc
             userData = await new OwnerService().getById(payload.id);
         } else if (payload.role === "EMPLOYEE") {
             userData = await new ProfessionalService().getById(payload.id);
+        } else if (payload.role === "CLIENT") {
+            userData = await new ClientRepository().getById(payload.id);
         } else {
             throw new ValidationError("Role inválida");
         }
