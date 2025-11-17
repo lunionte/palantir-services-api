@@ -1,5 +1,120 @@
-node_modules
-# Keep environment variables out of version control
-.env
+# ====================================
+# 🚫 .gitignore - Palantir Barber
+# ====================================
 
+# ====================================
+# 📦 Dependencies
+# ====================================
+node_modules/
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# ====================================
+# 🔐 Environment Variables
+# ====================================
+.env
+.env.local
+.env.*.local
+.env.development
+.env.production
+.env.test
+
+# ====================================
+# 📁 Build & Dist
+# ====================================
+dist/
+build/
+out/
+*.tsbuildinfo
 /src/generated/prisma
+
+# ====================================
+# 📝 IDE & Editor
+# ====================================
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+*.code-workspace
+
+# ====================================
+# 🧪 Testing
+# ====================================
+coverage/
+.nyc_output/
+*.lcov
+test-results/
+junit.xml
+
+# ====================================
+# 📊 Logs
+# ====================================
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# ====================================
+# 🔨 Build Tools
+# ====================================
+.cache/
+.turbo/
+
+# ====================================
+# 🗄️ Database
+# ====================================
+*.sqlite
+*.sqlite3
+*.db
+dump.rdb
+
+# ====================================
+# 🖼️ Uploads & Media
+# ====================================
+uploads/
+public/uploads/
+tmp/
+temp/
+
+# ====================================
+# 📦 System Files
+# ====================================
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# ====================================
+# 🔧 Misc
+# ====================================
+.eslintcache
+.stylelintcache
+.next/
+.turbo/
+
+# ====================================
+# 📱 Mobile/OS
+# ====================================
+# macOS
+.AppleDouble
+.LSOverride
+.directory
+.Trash-*
+
+# Windows
+ehthumbs.db
+Desktop.ini
+
+# ====================================
+# 🐛 Debug Files
+# ====================================
+.breakpoints
+.vscode-test
+test-results.json
