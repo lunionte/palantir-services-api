@@ -61,7 +61,7 @@ model Service {
   id             String        @id @default(auto()) @map("_id") @db.ObjectId
   name           String
   description    String?
-  price          Float
+  price          String
   durationMin    Int
   businessId     String        @db.ObjectId
   business       Business      @relation(fields: [businessId], references: [id])
