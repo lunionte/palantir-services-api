@@ -1,7 +1,7 @@
 import { Router } from "express";
-import { ClientController } from "../controllers/client.controller.ts";
 import { celebrate, Segments } from "celebrate";
 import { newClientLoginSchema, newClientSchema } from "../models/client.model";
+import { ClientController } from "../controllers/client.controller";
 
 export const clientRoutes = Router();
 clientRoutes.get("/", ClientController.getAll);
