@@ -29,4 +29,16 @@ export class ProfessionalRepository {
         });
         return data;
     }
+
+    async update(id: string, dataToUpdate: Partial<IProfessional>) {
+        const data = await prisma.professional.update({
+            where: { id },
+            data: dataToUpdate,
+        });
+        return data;
+    }
+
+    async delete(id: string) {
+        await prisma.professional.delete({ where: { id } });
+    }
 }
