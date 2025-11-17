@@ -7,7 +7,8 @@ export interface IProfessional {
     phone?: string;
     businessId: string;
     image?: string;
-    createdAt?: string;
+    role?: string;
+    createdAt?: Date;
 }
 
 export const newProfessionalSchema = Joi.object().keys({
@@ -16,4 +17,9 @@ export const newProfessionalSchema = Joi.object().keys({
     password: Joi.string().min(6).max(15).trim().required(),
     phone: Joi.string().length(11).trim().optional(),
     businessId: Joi.string().length(24).trim().required(),
+});
+
+export const newProfessionalLoginSchema = Joi.object().keys({
+    email: Joi.string().email().trim().required(),
+    password: Joi.string().min(6).max(15).trim().required(),
 });
