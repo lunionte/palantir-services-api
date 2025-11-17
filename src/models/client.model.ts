@@ -15,6 +15,6 @@ export const newClientSchema = Joi.object().keys({
 });
 
 export const newClientLoginSchema = Joi.object().keys({
-    email: Joi.string().max(40).trim().required(),
+    email: Joi.string().email().trim().required(),
     password: Joi.string().min(6).max(15).trim().required(),
 });
